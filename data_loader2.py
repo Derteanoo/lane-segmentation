@@ -86,5 +86,6 @@ def get_loader(image_src, image_tgt, batch_size=4, mode='train', width=128, heig
 
     data_loader = DataLoader(dataset=dataset,
                              batch_size=batch_size,
-                             shuffle=shuffle)
+                             shuffle=shuffle,
+                             num_workers = 32)
     return data_loader

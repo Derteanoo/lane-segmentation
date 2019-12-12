@@ -9,7 +9,7 @@ from PIL import Image
 import glob
 import cv2
 import torch.nn.functional as F
-
+from prefetch_generator import BackgroundGenerator
 
 def listAllFileName(rootDir, lines):
 
@@ -24,7 +24,9 @@ def listAllFileName(rootDir, lines):
         else:
             listAllFileName(pathname,lines)
 
-
+class DataLoaderX(DataLoader):
+    def __iter__(self):
+        return BackgroundGenerator(super().__iter__())
 
 
 class CelebDataset(Dataset):
@@ -94,7 +96,8 @@ def get_loader(image_src, image_tgt, batch_size=4, mode='train', width=128, heig
     if mode == 'train':
         shuffle = True
 
-    data_loader = DataLoader(dataset=dataset,
+    data_loader = DataLoaderX(dataset=dataset,
                              batch_size=batch_size,
-                             shuffle=shuffle)
+                             shuffle=shuffle,
+                             num_workers=32)
     return data_loader

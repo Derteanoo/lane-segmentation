@@ -67,5 +67,6 @@ def get_loader(image_src, batch_size=1, mode='test', width=128, height=128):
 
     data_loader = DataLoader(dataset=dataset,
                              batch_size=batch_size,
-                             shuffle=shuffle)
+                             shuffle=shuffle,
+                             num_workers = 32)
     return data_loader
