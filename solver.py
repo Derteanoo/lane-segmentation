@@ -280,9 +280,9 @@ class Solver(object):
                                os.path.join(self.model_save_path, '{}_{}_G.pth'.format(e + 1, i + 1)))
             
             if (e + 1) % self.val_log_step == 0:
-                val_iters_per_epoch = len(data_loader2)
+                val_iters_per_epoch = len(self.data_loader2)
 
-                for i, (real_A,real_B) in enumerate(data_loader2):
+                for i, (real_A,real_B) in enumerate(self.data_loader2):
                     real_A = self.to_var(real_A)
                     real_B = self.to_var(real_B)
 
