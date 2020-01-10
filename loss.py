@@ -91,8 +91,8 @@ class SoftDiceLoss(nn.Module):
         probs = F.sigmoid(logits)
         m1 = probs.view(batch, num, -1)
         m2 = labels.view(batch, num, -1).float().cuda()
-        print("m1=",m1.shape)
-        print("m2=",m2.shape)
+        #print("m1=",m1.shape)
+        #print("m2=",m2.shape)
         intersection = m1 * m2
         w = weights.expand(batch,num).cuda()
 

@@ -97,8 +97,12 @@ class Solver(object):
         if print_network == True:
             self.print_network(self.G, 'G')
 
-        if torch.cuda.is_available():
-            self.G.cuda()
+        if torch.cuda.device_count() > 1:
+            print("Let's use", torch.cuda.device_count(), "GPUs!")
+            self.G = nn.DataParallel(self.G).cuda()
+        elif torch.cuda.is_available():
+            print("111111111111111")
+            self.G = self.G.cuda()
             #from torchsummary import summary
             #summary(self.G, (3, 256, 256))
 

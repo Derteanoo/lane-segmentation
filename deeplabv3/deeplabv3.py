@@ -10,10 +10,10 @@ from .resnet import ResNet18_OS16, ResNet34_OS16, ResNet50_OS16, ResNet101_OS16,
 from .aspp import ASPP, ASPP_Bottleneck
 
 class DeepLabV3(nn.Module):
-    def __init__(self, model_id=1, project_dir=""):
+    def __init__(self, model_id=1, project_dir="", class_num = 5):
         super(DeepLabV3, self).__init__()
 
-        self.num_classes = 34
+        self.num_classes = class_num
         '''
         self.model_id = model_id
         self.project_dir = project_dir

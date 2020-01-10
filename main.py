@@ -93,7 +93,7 @@ if __name__ == '__main__':
     parser.add_argument('--result_path', type=str, default='./stargan/results')
 
     # Step size
-    parser.add_argument('--log_step', type=int, default=200)
+    parser.add_argument('--log_step', type=int, default=1)
     parser.add_argument('--val_log_step', type=int, default=200)    
     parser.add_argument('--sample_step', type=int, default=200)#400
     parser.add_argument('--model_save_step', type=int, default=200)
@@ -108,6 +108,6 @@ if __name__ == '__main__':
 
     config = parser.parse_args()
     os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-    os.environ["CUDA_VISIBLE_DEVICES"] = "3"
+    os.environ["CUDA_VISIBLE_DEVICES"] = "2, 3"
     print(config)
     main(config)
