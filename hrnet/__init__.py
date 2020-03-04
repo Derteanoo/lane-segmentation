@@ -1,0 +1,1 @@
+from .HRNet import HRNetV2 

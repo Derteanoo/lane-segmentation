@@ -85,6 +85,8 @@ class Solver(object):
             from enet import ENet as Generator
         elif network == 'erfnet':
             from erfnet import ERFNet as Generator
+        elif network == 'hrnet':
+            from hrnet import HRNetV2 as Generator
 
         self.G = Generator(class_num = class_num)
 
@@ -101,7 +103,6 @@ class Solver(object):
             print("Let's use", torch.cuda.device_count(), "GPUs!")
             self.G = nn.DataParallel(self.G).cuda()
         elif torch.cuda.is_available():
-            print("111111111111111")
             self.G = self.G.cuda()
             #from torchsummary import summary
             #summary(self.G, (3, 256, 256))

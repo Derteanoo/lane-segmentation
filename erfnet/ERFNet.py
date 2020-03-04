@@ -142,10 +142,10 @@ class Decoder (nn.Module):
 
 # ERFNet
 class ERFNet(nn.Module):
-    def __init__(self, layers=18, in_channels=3, out_channels=5, pretrained=False, pool=False):  #use encoder to pass pretrained encoder
+    def __init__(self, layers=18, in_channels=3, class_num=5, pretrained=False, pool=False):  #use encoder to pass pretrained encoder
         super().__init__()
-        self.encoder = Encoder(in_channels, out_channels)
-        self.decoder = Decoder(out_channels, pretrained)
+        self.encoder = Encoder(in_channels, class_num)
+        self.decoder = Decoder(class_num, pretrained)
         
     def forward(self, input, flag=True, only_encode=False):
         if only_encode:
