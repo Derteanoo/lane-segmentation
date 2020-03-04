@@ -1,2 +1,2 @@
 # lane-segmentation
-lane segmentation pytorch
+lane segmentation in pytorch
