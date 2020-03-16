@@ -1,6 +1,5 @@
 import torch.nn as nn
 import torch
-import pdb
 
 class InitialBlock(nn.Module):
     """The initial block is composed of two branches:
@@ -453,7 +452,7 @@ class UpsamplingBottleneck(nn.Module):
 class ENet(nn.Module):
     """Generate the ENet model.
     Keyword arguments:
-    - num_classes (int): the number of classes to segment.
+    - class_num (int): the number of classes to segment.
     - encoder_relu (bool, optional): When ``True`` ReLU is used as the
     activation function in the encoder blocks/layers; otherwise, PReLU
     is used. Default: False.
@@ -462,7 +461,7 @@ class ENet(nn.Module):
     is used. Default: True.
     """
 
-    def __init__(self, num_classes=5, encoder_relu=False, decoder_relu=True):
+    def __init__(self, class_num=5, encoder_relu=False, decoder_relu=True):
         super().__init__()
 
         self.initial_block = InitialBlock(3, 16, relu=encoder_relu)
@@ -560,7 +559,7 @@ class ENet(nn.Module):
             16, padding=1, dropout_prob=0.1, relu=decoder_relu)
         self.transposed_conv = nn.ConvTranspose2d(
             16,
-            num_classes,
+            class_num,
             kernel_size=3,
             stride=2,
             padding=1,

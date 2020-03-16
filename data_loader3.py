@@ -41,14 +41,14 @@ class CelebDataset(Dataset):
     def __getitem__(self, index):
 
         path_name_src = self.src_filenames[index % len(self.src_filenames)]
-
+        
         image_src = Image.open(path_name_src)#.resize(self.resize, Image.BILINEAR)
         w, h = image_src.size
         left, top, right, bottom = 0, h//2, w, h
         region = (left,top,right,bottom)
-        image_src = image_src.crop(region).resize(self.resize, Image.BILINEAR)
+        image_half = image_src.crop(region).resize(self.resize, Image.BILINEAR)
 
-        return self.transform(image_src)
+        return self.transform(image_half), self.transform(image_src)
 
     def __len__(self):
         return self.num_data

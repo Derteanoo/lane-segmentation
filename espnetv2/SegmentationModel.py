@@ -12,9 +12,9 @@ import torch.nn.functional as F
 from .cnn_utils import *
 
 class EESPNet_Seg(nn.Module):
-    def __init__(self, classes=5, s=1, pretrained=None, gpus=1):
+    def __init__(self, class_num=5, s=1, pretrained=None, gpus=1):
         super().__init__()
-        classificationNet = EESPNet(classes=5, s=s)
+        classificationNet = EESPNet(class_num=5, s=s)
         if gpus >=1:
             classificationNet = nn.DataParallel(classificationNet)
         # load the pretrained weights
@@ -40,10 +40,10 @@ class EESPNet_Seg(nn.Module):
         pspSize = 2*self.net.level3[-1].module_act.num_parameters
         self.pspMod = nn.Sequential(EESP(pspSize, pspSize //2, stride=1, k=4, r_lim=7),
                 PSPModule(pspSize // 2, pspSize //2))
-        self.project_l3 = nn.Sequential(nn.Dropout2d(p=p), C(pspSize // 2, classes, 1, 1))
-        self.act_l3 = BR(classes)
-        self.project_l2 = CBR(self.net.level2_0.act.num_parameters + classes, classes, 1, 1)
-        self.project_l1 = nn.Sequential(nn.Dropout2d(p=p), C(self.net.level1.act.num_parameters + classes, classes, 1, 1))
+        self.project_l3 = nn.Sequential(nn.Dropout2d(p=p), C(pspSize // 2, class_num, 1, 1))
+        self.act_l3 = BR(class_num)
+        self.project_l2 = CBR(self.net.level2_0.act.num_parameters + class_num, class_num, 1, 1)
+        self.project_l1 = nn.Sequential(nn.Dropout2d(p=p), C(self.net.level1.act.num_parameters + class_num, class_num, 1, 1))
 
     def hierarchicalUpsample(self, x, factor=3):
         for i in range(factor):
@@ -72,7 +72,7 @@ class EESPNet_Seg(nn.Module):
 
 if __name__ == '__main__':
     input = torch.Tensor(1, 3, 512, 1024).cuda()
-    net = EESPNet_Seg(classes=20, s=2).cuda()
+    net = EESPNet_Seg(class_num=20, s=2).cuda()
     out_x_8 = net(input)
     print(out_x_8.size())
 

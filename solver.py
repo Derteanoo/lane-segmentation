@@ -337,26 +337,33 @@ class Solver(object):
         start = time.time()
         
         with torch.no_grad():
-            for i, (real_A) in enumerate(self.data_loader):
+            for i, (real_A, real_B) in enumerate(self.data_loader):
                 print('i=',i)
                 real_A = self.to_var(real_A)
+                real_B = self.to_var(real_B)
 
-                fake_image_list = [real_A]
+                fake_image_list = []
                 fake_B = self.G(real_A)
+                upsample = nn.Upsample(size=(real_B.shape[2]//2,real_B.shape[3]),mode='nearest')
+                fake_B = upsample(fake_B)
                 _, out_mask = torch.max(fake_B, dim=1)
                 out_mask = out_mask.unsqueeze(1)
                 out_mask = torch.cat([out_mask, out_mask, out_mask], 1).cpu()
                 out_mask = out_mask.cpu().numpy()
+                real_B = real_B.cpu().numpy()
+                real_B = real_B.astype(np.float32)
                 for b in range(out_mask.shape[0]):
                     for h in range(out_mask.shape[2]):
                         for w in range(out_mask.shape[3]):
                             if out_mask[b,0,h,w] == 1:
-                                out_mask[b,:,h,w] = [self.class_num-1,0,0]
+                                real_B[b,:,h+real_B.shape[2]//2,w] = 0.3 * np.array([0.,0.,255.]) + 0.7 * real_B[b,:,h+real_B.shape[2]//2,w]
                             elif out_mask[b,0,h,w] == 2:
-                                out_mask[b,:,h,w] = [0,self.class_num-1,0]
+                                real_B[b,:,h+real_B.shape[2]//2,w] = 0.3 * np.array([0.,255.,0.]) + 0.7 * real_B[b,:,h+real_B.shape[2]//2,w]
                             elif out_mask[b,0,h,w] == 3:
-                                out_mask[b,:,h,w] = [0,0,self.class_num-1]
-                out_mask = torch.from_numpy(out_mask).float().cuda()
+                                real_B[b,:,h+real_B.shape[2]//2,w] = 0.3 * np.array([255.,0.,0.]) + 0.7 * real_B[b,:,h+real_B.shape[2]//2,w]
+
+                real_B = torch.from_numpy(real_B).float().cuda()
+                fake_image_list.append(real_B)
                 fake_image_list.append(2 * (out_mask / (self.class_num - 1) - 0.5))
                 fake_images = torch.cat(fake_image_list, dim=3)
 
