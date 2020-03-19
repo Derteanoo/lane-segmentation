@@ -19,7 +19,6 @@ from torch.optim.lr_scheduler import MultiStepLR
 from loss import SoftmaxFocalLoss
 from loss import SoftDiceLoss
 
-import pdb
 
 class Solver(object):
 
@@ -87,6 +86,8 @@ class Solver(object):
             from erfnet import ERFNet as Generator
         elif network == 'hrnet':
             from hrnet import HRNetV2 as Generator
+        elif network == 'scnn':
+            from scnn import SCNN as Generator
 
         self.G = Generator(class_num = class_num)
 

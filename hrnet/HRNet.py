@@ -9,7 +9,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 #from .utils import load_url
 from .lib.nn import SynchronizedBatchNorm2d
-import pdb
 
 BatchNorm2d = SynchronizedBatchNorm2d
 BN_MOMENTUM = 0.1
