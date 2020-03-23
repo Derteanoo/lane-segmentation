@@ -88,7 +88,11 @@ class Solver(object):
             from hrnet import HRNetV2 as Generator
         elif network == 'scnn':
             from scnn import SCNN as Generator
-
+        elif network == 'hourglass':
+            from hourglass import Hourglass as Generator
+        elif network == 'deeplabv3+':
+            from deeplabv3_plus import deeplabv3plus_mobilenet as Generator
+            
         self.G = Generator(class_num = class_num)
 
         #self.D = Discriminator()

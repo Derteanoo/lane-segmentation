@@ -104,7 +104,7 @@ if __name__ == '__main__':
     parser.add_argument('--class_num', type=int, default=5)
 
     #network structure
-    parser.add_argument('--network', type=str, default='unet', choices=['unet', 'deeplabv3', 'espnetv2', 'enet', 'erfnet', 'hrnet'])
+    parser.add_argument('--network', type=str, default='unet', choices=['unet', 'deeplabv3', 'espnetv2', 'enet', 'erfnet', 'hrnet', 'scnn', 'hourglass', 'deeplabv3_plus'])
 
     config = parser.parse_args()
     os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
