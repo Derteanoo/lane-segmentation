@@ -2,6 +2,7 @@ from .utils import IntermediateLayerGetter
 from ._deeplab import DeepLabHead, DeepLabHeadV3Plus, DeepLabV3
 from .backbone import resnet
 from .backbone import mobilenetv2
+from .backbone import mnasnet
 
 def _segm_resnet(name, backbone_name, num_classes, output_stride, pretrained_backbone):
 
@@ -64,6 +65,8 @@ def _load_model(arch_type, backbone, num_classes, output_stride, pretrained_back
         model = _segm_mobilenet(arch_type, backbone, num_classes, output_stride=output_stride, pretrained_backbone=pretrained_backbone)
     elif backbone.startswith('resnet'):
         model = _segm_resnet(arch_type, backbone, num_classes, output_stride=output_stride, pretrained_backbone=pretrained_backbone)
+    elif backbone.startswith('mnasnet'):
+        model = _segm_mnasnet(arch_type, backbone, num_classes, output_stride=output_stride, pretrained_backbone=pretrained_backbone)
     else:
         raise NotImplementedError
     return model
@@ -135,3 +138,13 @@ def deeplabv3plus_mobilenet(class_num=21, output_stride=8, pretrained_backbone=F
         pretrained_backbone (bool): If True, use the pretrained backbone.
     """
     return _load_model('deeplabv3plus', 'mobilenetv2', class_num, output_stride=output_stride, pretrained_backbone=pretrained_backbone)
+
+def deeplabv3plus_efficientnet(class_num=21, output_stride=8, pretrained_backbone=False):
+    """Constructs a DeepLabV3+ model with a MNasNet backbone.
+
+    Args:
+        class_num (int): number of classes.
+        output_stride (int): output stride for deeplab.
+        pretrained_backbone (bool): If True, use the pretrained backbone.
+    """
+    return _load_model('deeplabv3plus', 'mnasnet', class_num, output_stride=output_stride, pretrained_backbone=pretrained_backbone)
