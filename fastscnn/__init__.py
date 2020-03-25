@@ -1,0 +1,1 @@
+from .FastSCNN import FastSCNN

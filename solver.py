@@ -92,7 +92,9 @@ class Solver(object):
             from hourglass import Hourglass as Generator
         elif network == 'deeplabv3+':
             from deeplabv3_plus import deeplabv3plus_mobilenet as Generator
-            
+        elif network == 'fast_scnn':
+            from fastscnn import FastSCNN as Generator
+                        
         self.G = Generator(class_num = class_num)
 
         #self.D = Discriminator()
