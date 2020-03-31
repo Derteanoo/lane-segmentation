@@ -104,11 +104,12 @@ if __name__ == '__main__':
     parser.add_argument('--class_num', type=int, default=5)
 
     #network structure
-    parser.add_argument('--network', type=str, default='unet', 
-                       choices=['unet', 'deeplabv3', 'espnetv2', 'enet', 'erfnet', 'hrnet', 'scnn', 'hourglass', 'deeplabv3_plus', 'fast_scnn'])
+    parser.add_argument('--network', type=str, default='hrnet', 
+                       choices=['unet', 'deeplabv3', 'espnetv2', 'enet', 'erfnet', 'hrnet', 'scnn', 
+                       'hourglass', 'deeplabv3_plus', 'fast_scnn', 'mobilenetv2', 'mnasnet'])
 
     config = parser.parse_args()
     os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-    os.environ["CUDA_VISIBLE_DEVICES"] = "2, 3"
+    os.environ["CUDA_VISIBLE_DEVICES"] = "5, 6"
     print(config)
     main(config)

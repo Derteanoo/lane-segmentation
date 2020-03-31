@@ -94,7 +94,10 @@ class Solver(object):
             from deeplabv3_plus import deeplabv3plus_mobilenet as Generator
         elif network == 'fast_scnn':
             from fastscnn import FastSCNN as Generator
-                        
+        elif network == 'mobilenetv2':
+            from mobilenetv2 import MobileNetV2 as Generator
+        elif network == 'mnasnet':
+            from mnasnet import MnasNet as Generator           
         self.G = Generator(class_num = class_num)
 
         #self.D = Discriminator()
