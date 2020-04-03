@@ -97,7 +97,11 @@ class Solver(object):
         elif network == 'mobilenetv2':
             from mobilenetv2 import MobileNetV2 as Generator
         elif network == 'mnasnet':
-            from mnasnet import MnasNet as Generator           
+            from mnasnet import MnasNet as Generator
+        elif network == 'dfanet':
+            from dfanet import DFANet as Generator
+        elif network == 'lednet':
+            from lednet import LEDNet as Generator
         self.G = Generator(class_num = class_num)
 
         #self.D = Discriminator()

@@ -106,7 +106,8 @@ if __name__ == '__main__':
     #network structure
     parser.add_argument('--network', type=str, default='hrnet', 
                        choices=['unet', 'deeplabv3', 'espnetv2', 'enet', 'erfnet', 'hrnet', 'scnn', 
-                       'hourglass', 'deeplabv3_plus', 'fast_scnn', 'mobilenetv2', 'mnasnet'])
+                       'hourglass', 'deeplabv3_plus', 'fast_scnn', 'mobilenetv2', 'mnasnet',
+                       'dfanet','lednet'])
 
     config = parser.parse_args()
     os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
