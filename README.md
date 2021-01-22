@@ -10,7 +10,7 @@ This repository contains some models for lane semantic segmentation and the pipe
 We train and test the model on our own dataset in the same format as the Tusimple dataset. You need to generate instance segmentation labels first.
 
 ## Test
-We provide trained model, and it is saved in "savefile" directory. You can test as following,
+We provide trained model, and it is saved in "savefile" directory. You can test as following:
 
 `sh test.sh`
 
